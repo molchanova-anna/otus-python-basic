@@ -26,7 +26,7 @@ PRIME = "prime"
 
 def is_prime(num: int) -> bool:
     for i in range(1, num):
-        if (i != 1 and i != num and num%i == 0):
+        if num == 0 or (i != 1 and i != num and num%i == 0):
             return False
     else:
         return True
