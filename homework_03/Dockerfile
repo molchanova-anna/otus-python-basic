@@ -22,6 +22,6 @@ COPY web_app ./web_app
 
 EXPOSE 8000
 
-CMD ["uvicorn", "web_app.main:my_app"]
+CMD ["uvicorn", "web_app.main:my_app", "--host=0.0.0.0"]
 
 
