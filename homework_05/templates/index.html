@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title -%}
+  Главная страница
+{%- endblock %}
+
+{% block body -%}
+<h2> Главная страница моего первого сайта на flask </h2>
+<div class="container-fluid">
+  <div class="row row-cols-3">
+    <div class="col-md-auto">Фамилия</div>
+    <div class="col-md-auto">Имя</div>
+    <div class="col-md-auto">Отчество</div>
+  </div>
+    <div class="row row-cols-3">
+    <div class="col-md-auto">Иванов</div>
+    <div class="col-md-auto">Иван</div>
+    <div class="col-md-auto">Иванович</div>
+  </div>
+  <div class="row row-cols-3">
+    <div class="col-md-auto">Петров</div>
+    <div class="col-md-auto">Петр</div>
+    <div class="col-md-auto">Петрович</div>
+  </div>
+</div>
+{%- endblock %}
