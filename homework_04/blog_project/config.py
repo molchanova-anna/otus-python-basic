@@ -1,5 +1,6 @@
+import os
 # Путь к БД
-POSTGRES_DB = "postgresql+asyncpg://user:password@localhost:5433/blog_project"
+PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://user:password@localhost:5432/blog_project"
 
 # Флаг очищать ли таблицы перед загрузкой
 DO_CLEAR_TABLES = True

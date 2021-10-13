@@ -15,11 +15,9 @@
 import asyncio
 
 from sqlalchemy import delete
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
 
 from blog_project.base.models import User, Post, Session
-from blog_project.config import DO_CLEAR_TABLES, POSTGRES_DB
+from blog_project.config import DO_CLEAR_TABLES, PG_CONN_URI
 from blog_project.jsonplaceholder_requests import fetch_json, USERS_DATA_URL, POSTS_DATA_URL
 
 
