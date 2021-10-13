@@ -14,27 +14,28 @@
 """
 import asyncio
 
+from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
-from blog_project.base.models import User, Post, async_session
+from blog_project.base.models import User, Post, Session
 from blog_project.config import DO_CLEAR_TABLES, POSTGRES_DB
-from jsonplaceholder_requests import fetch_json, USERS_DATA_URL, POSTS_DATA_URL
+from blog_project.jsonplaceholder_requests import fetch_json, USERS_DATA_URL, POSTS_DATA_URL
 
 
 async def clear_tables():
-    async with async_session() as session:
-        posts = session.query(Post).all()
-        session.delete(posts)
+    async with Session() as session:
+        q = delete(Post)
+        await session.execute(q)
 
-        users = session.query(User).all()
-        session.delete(users)
+        q = delete(User)
+        await session.execute(q)
 
         await session.commit()
 
 
 async def load_users(users: list):
-    async with async_session() as session:
+    async with Session() as session:
 
         for user in users:
             user_db = User(id=user.get('id'),
@@ -46,7 +47,7 @@ async def load_users(users: list):
 
 
 async def load_posts(posts: list):
-    async with async_session() as session:
+    async with Session() as session:
 
         for post in posts:
             post_db = Post(id=post.get('id'),

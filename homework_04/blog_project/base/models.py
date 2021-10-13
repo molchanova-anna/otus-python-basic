@@ -19,7 +19,7 @@ engine = create_async_engine(
     echo=True,
 )
 
-async_session = sessionmaker(
+Session = sessionmaker(
     engine,
     expire_on_commit=False,
     class_=AsyncSession,
