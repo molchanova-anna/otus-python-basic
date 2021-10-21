@@ -16,20 +16,9 @@ import asyncio
 
 from sqlalchemy import delete
 
-from blog_project.models import User, Post, Session
-from blog_project.config import DO_CLEAR_TABLES, PG_CONN_URI
+from blog_project.models import User, Post, Session, Base, engine
+from blog_project.config import PG_CONN_URI
 from blog_project.jsonplaceholder_requests import fetch_json, USERS_DATA_URL, POSTS_DATA_URL
-
-
-async def clear_tables():
-    async with Session() as session:
-        q = delete(Post)
-        await session.execute(q)
-
-        q = delete(User)
-        await session.execute(q)
-
-        await session.commit()
 
 
 async def load_users(users: list):
@@ -55,12 +44,15 @@ async def load_posts(posts: list):
             session.add(post_db)
         await session.commit()
 
+async def create_tables():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
 
 async def async_main():
+    await create_tables()
     users, posts = await asyncio.gather(fetch_json(url = USERS_DATA_URL),
                                         fetch_json(url = POSTS_DATA_URL))
-    if DO_CLEAR_TABLES:
-        await clear_tables()
     await load_users(users)
     await load_posts(posts)
 
