@@ -8,6 +8,11 @@ pytest-asyncio = "*"
 
 [packages]
 flask = "*"
+sqlalchemy = {extras = ["psycopg2"], version = "*"}
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"

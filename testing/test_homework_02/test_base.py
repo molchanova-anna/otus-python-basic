@@ -37,6 +37,14 @@ class TestVehicle:
         vehicle.start()
         assert vehicle.started is True
 
+    def test_start_ok_when_already_started(self, vehicle):
+        assert vehicle.fuel > 0
+        assert vehicle.started is False
+        vehicle.start()
+        assert vehicle.started is True
+        vehicle.start()
+        assert vehicle.started is True
+
     def test_cannot_start_low_fuel(self, vehicle):
         assert vehicle.started is False
         vehicle.fuel = 0
@@ -53,6 +61,14 @@ class TestVehicle:
         expected = vehicle.fuel - distance * vehicle.fuel_consumption
         vehicle.move(distance)
         assert vehicle.fuel == expected
+
+    def test_move_when_exactly_enough_fuel(self, vehicle):
+        assert vehicle.fuel_consumption > 0
+        distance = fake.pyint(3, 9)
+        # exactly enough fuel! after travel fuel will be 0
+        vehicle.fuel = distance * vehicle.fuel_consumption
+        vehicle.move(distance)
+        assert vehicle.fuel == 0
 
     @pytest.mark.parametrize("fuel", [
         pytest.param(0, id="move_when_zero_fuel"),

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title -%}
+  Add category
+{%- endblock %}
+
+{% block body %}
+  <div>
+    <h3>Add new category</h3>
+    <form method="post">
+      <label for="category-name-id">Category name:</label>
+      <input class="" id="category-name-id" name="category-name" type="text" required>
+      <button class="btn btn-primary" type="submit">Add</button>
+    </form>
+  </div>
+{% endblock %}

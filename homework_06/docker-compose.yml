@@ -1,0 +1,50 @@
+version: '3.1'
+
+services:
+  web-app: &web-app-config
+    image: web-app-blog
+    container_name: web-app-blog
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: flask run --host=0.0.0.0
+    environment:
+      DB_CONN_URI: postgresql+psycopg2://user:password@pg:5432/blog
+      FLASK_ENV: development
+    ports:
+      - 5000:5000
+    volumes:
+      - ./:/app
+    depends_on:
+      - pg
+
+  web-app-prod:
+    <<: *web-app-config
+    command: gunicorn --bind 0.0.0.0:5000 app:app
+    environment:
+      DB_CONN_URI: postgresql+psycopg2://user:password@pg:5432/blog
+      FLASK_ENV: production
+
+
+  pg:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_USER: 'anya'
+      POSTGRES_DB: 'blog'
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data/new/
+
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#      - 8080:8080
+
+volumes:
+  pg-data:
