@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-SQLALCHEMY_DATABASE_URI = os.getenv("DB_CONN_URI", "postgresql+psycopg2://anya:password@localhost:5432/blog")
+SQLALCHEMY_DATABASE_URI = os.getenv("DB_CONN_URI", "postgresql+psycopg2://user:password@localhost:5432/blog")
 app.config.update(
     SQLALCHEMY_DATABASE_URI=SQLALCHEMY_DATABASE_URI,
     SQLALCHEMY_TRACK_MODIFICATIONS=False,

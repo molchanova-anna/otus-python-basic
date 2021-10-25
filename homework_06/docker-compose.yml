@@ -24,6 +24,8 @@ services:
     environment:
       DB_CONN_URI: postgresql+psycopg2://user:password@pg:5432/blog
       FLASK_ENV: production
+    depends_on:
+      - pg
 
 
   pg:
@@ -31,14 +33,14 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: 'password'
-      POSTGRES_USER: 'anya'
+      POSTGRES_USER: 'user'
       POSTGRES_DB: 'blog'
     expose:
       - 5432
     ports:
       - "5432:5432"
-    volumes:
-      - pg-data:/var/lib/postgresql/data/new/
+    #volumes:
+      #- pg-data:/tmp/postgres/
 
 #  adminer:
 #    image: adminer
