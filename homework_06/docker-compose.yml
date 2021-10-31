@@ -20,6 +20,7 @@ services:
 
   web-app-prod:
     <<: *web-app-config
+    container_name: web-app-blog-prod
     command: gunicorn --bind 0.0.0.0:5000 app:app
     environment:
       DB_CONN_URI: postgresql+psycopg2://user:password@pg:5432/blog
